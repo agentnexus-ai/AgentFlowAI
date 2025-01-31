@@ -1,33 +1,25 @@
-# 🐝 Agency Swarm
+# AgentFlow AI
 
-![Framework](https://firebasestorage.googleapis.com/v0/b/vrsen-ai/o/public%2Fgithub%2Fagency-swarm-logo-white.png?alt=media&token=76d8615d-1211-426a-bd4f-b9098cbfbc43)
+![Framework](https://github.com/user-attachments/assets/02583035-ac4c-4022-9052-589dd4e14c7b)
 
 ## Overview
 
-Agency Swarm started as a desire and effort of Arsenii Shatokhin (aka VRSEN) to fully automate his AI Agency with AI. By building this framework, we aim to simplify the agent creation process and enable anyone to create collaborative swarm of agents (Agencies), each with distinct roles and capabilities. By thinking about automation in terms of real world entities, such as agencies and specialized agent roles, we make it a lot more intuitive for both the agents and the users.
-
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1qGVyK-vIoxZD0dMrMVqCxCsgL1euMLKj)
-[![Docs](https://img.shields.io/website?label=Docs&up_message=available&url=https://vrsen.github.io/agency-swarm/)](https://vrsen.github.io/agency-swarm/)
-[![Subscribe on YouTube](https://img.shields.io/youtube/channel/subscribers/UCSv4qL8vmoSH7GaPjuqRiCQ
-)](https://youtube.com/@vrsen/)
-[![Follow on Twitter](https://img.shields.io/twitter/follow/__vrsen__.svg?style=social&label=Follow%20%40__vrsen__)](https://twitter.com/__vrsen__)
-[![Join our Discord!](https://img.shields.io/discord/1200037936352202802?label=Discord)](https://discord.gg/cw2xBaWfFM)
-[![Agents-as-a-Service](https://img.shields.io/website?label=Agents-as-a-Service&up_message=For%20Business&url=https%3A%2F%2Fvrsen.ai)](https://agents.vrsen.ai)
+AgentFlow AI aims to develop a framework to streamline the creation of AI agents, allowing anyone to build collaborative swarms of agents (Agencies) with distinct roles and capabilities. By conceptualizing automation through real-world entities like agencies and specialized agent roles, we make the process more intuitive for both users and the agents themselves.
 
 ### Key Features
 
-- **Customizable Agent Roles**: Define roles like CEO, virtual assistant, developer, etc., and customize their functionalities with [Assistants API](https://platform.openai.com/docs/assistants/overview).
-- **Full Control Over Prompts**: Avoid conflicts and restrictions of pre-defined prompts, allowing full customization.
-- **Tool Creation**: Tools within Agency Swarm are created using [Instructor](https://github.com/jxnl/instructor), which provides a convenient interface and automatic type validation.
-- **Efficient Communication**: Agents communicate through a specially designed "send message" tool based on their own descriptions.
-- **State Management**: Agency Swarm efficiently manages the state of your assistants on OpenAI, maintaining it in a special `settings.json` file.
-- **Deployable in Production**: Agency Swarm is designed to be reliable and easily deployable in production environments.
+- **Customizable Agent Roles**: Define and tailor roles such as CEO, virtual assistant, or developer, adjusting their functionalities using the [Assistants API](https://platform.openai.com/docs/assistants/overview).  
+- **Complete Prompt Control**: Fully customize prompts without the limitations of predefined structures, ensuring flexibility.  
+- **Tool Development**: Create tools within AgentFlow AI using [Instructor](https://github.com/jxnl/instructor), offering a seamless interface and automatic type validation.  
+- **Optimized Communication**: Agents interact through a dedicated "send message" tool based on their unique descriptions.  
+- **State Management**: Efficiently handles assistant states on OpenAI, storing configurations in a dedicated `settings.json` file.  
+- **Production-Ready Deployment**: Designed for reliability and seamless deployment in production environments.  
 
 
 ## Installation
 
 ```bash
-pip install -U agency-swarm
+pip install -U agent-flow
 ```
 
 ## Getting Started
@@ -36,14 +28,14 @@ pip install -U agency-swarm
 1. **Set Your OpenAI Key**:
 
     ```python
-    from agency_swarm import set_openai_key
+    from agent_flow import set_openai_key
     set_openai_key("YOUR_API_KEY")
     ```
 
 2. **Create Tools**:
 Define your custom tools with [Instructor](https://github.com/jxnl/instructor):
     ```python
-    from agency_swarm.tools import BaseTool
+    from agent_flow.tools import BaseTool
     from pydantic import Field
 
     class MyCustomTool(BaseTool):
@@ -77,7 +69,7 @@ Define your custom tools with [Instructor](https://github.com/jxnl/instructor):
     or convert from OpenAPI schemas:
 
     ```python
-    from agency_swarm.tools import ToolFactory
+    from agent_flow.tools import ToolFactory
     # using local file
     with open("schemas/your_schema.json") as f:
         tools = ToolFactory.from_openapi_schema(
@@ -93,7 +85,7 @@ Define your custom tools with [Instructor](https://github.com/jxnl/instructor):
 3. **Define Agent Roles**: Start by defining the roles of your agents. For example, a CEO agent for managing tasks and a developer agent for executing tasks.
 
     ```python
-    from agency_swarm import Agent
+    from agent_flow import Agent
 
     ceo = Agent(name="CEO",
                 description="Responsible for client communication, task planning and management.",
@@ -109,7 +101,7 @@ Define your custom tools with [Instructor](https://github.com/jxnl/instructor):
     Import from existing agents:
 
    ```bash
-   agency-swarm import-agent --name "Devid" --destination "./"
+   agent-flow import-agent --name "Devid" --destination "./"
    ```
 
    This will import Devid (Software Developer) Agent locally, including all source code files, so you have full control over your system. Currently, available agents are: `Devid`, `BrowsingAgent`.
@@ -120,7 +112,7 @@ Define your custom tools with [Instructor](https://github.com/jxnl/instructor):
 Establish how your agents will communicate with each other.
 
     ```python
-    from agency_swarm import Agency
+    from agent_flow import Agency
     # if importing from local files
     from Developer import Developer
     from VirtualAssistant import VirtualAssistant
@@ -140,7 +132,7 @@ Establish how your agents will communicate with each other.
     )
     ```
 
-     In Agency Swarm, communication flows are directional, meaning they are established from left to right in the agency_chart definition. For instance, in the example above, the CEO can initiate a chat with the developer (dev), and the developer can respond in this chat. However, the developer cannot initiate a chat with the CEO. The developer can initiate a chat with the virtual assistant (va) and assign new tasks.
+    In AgentFlow AI, communication flows follow a directional structure, moving from left to right as defined in the agency_chart. For example, in the scenario above, the CEO can start a conversation with the developer (dev), who can then respond within that chat. However, the developer cannot initiate a conversation with the CEO. Instead, the developer can start a chat with the virtual assistant (va) and assign new tasks.
 
 5. **Run Demo**:
 Run the demo to see your agents in action!
@@ -172,7 +164,7 @@ The `genesis` command starts the genesis agency in your terminal to help you cre
 #### **Command Syntax:**
 
 ```bash
-agency-swarm genesis [--openai_key "YOUR_API_KEY"]
+agent-flow genesis [--openai_key "YOUR_API_KEY"]
 ```
 
 Make sure to include:
@@ -187,7 +179,7 @@ This CLI command allows you to import existing agents from local files into your
 #### **Command Syntax:**
 
 ```bash
-agency-swarm import-agent --name "AgentName" --destination "/path/to/directory"
+agent-flow import-agent --name "AgentName" --destination "/path/to/directory"
 ```
 
 To check available agents, simply run this command without any arguments.
@@ -199,7 +191,7 @@ This CLI command simplifies the process of creating a structured environment for
 #### **Command Syntax:**
 
 ```bash
-agency-swarm create-agent-template --name "AgentName" --description "Agent Description" [--path "/path/to/directory"] [--use_txt]
+agent-flow create-agent-template --name "AgentName" --description "Agent Description" [--path "/path/to/directory"] [--use_txt]
 ```
 
 ### Folder Structure
@@ -223,19 +215,13 @@ When you run the `create-agent-template` command, it creates the following folde
 
 This structure ensures that each agent has its dedicated space with all necessary files to start working on its specific tasks. The `tools.py` can be customized to include tools and functionalities specific to the agent's role.
 
-## Future Enhancements
-
-1. [x] Creation of agencies that can autonomously create other agencies.
-2. [x] Asynchronous communication and task handling.
-3. [ ] Inter-agency communication for a self-expanding system.
-
 ## Contributing
 
-For details on how to contribute you agents and tools to Agency Swarm, please refer to the [Contributing Guide](CONTRIBUTING.md).
+For details on how to contribute you agents and tools to AgentFlow AI, please refer to the [Contributing Guide](CONTRIBUTING.md).
 
 ## License
 
-Agency Swarm is open-source and licensed under [MIT](https://opensource.org/licenses/MIT).
+AgentFlow AI is open-source and licensed under [MIT](https://opensource.org/licenses/MIT).
 
 
 
